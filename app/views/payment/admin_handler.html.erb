@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ingenico Admin</title>
+	
+	<style >
+		table, td, th {
+			border: 1px solid black;
+		}
+		table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+		.success{
+			background-color: #cbeacb;
+			color: #398c39;
+			padding: 10px;
+			margin-bottom: 18px;
+			border: 1px solid transparent;
+			border-radius: 3px;
+		}
+	</style>
+
+	<script >
+		$(document).ready(function(){
+			$(".success").fadeOut(3000);
+			if($("#enableSI").val()=="true"){
+				var merchantsidetails = <%=@config_data['siDetailsAtMerchantEnd']%>
+
+				$("#ingenico_admin_table").append('<tr id="merchantsidetailsrow"> \
+						<th scope="row"><label for="siDetailsAtMerchantEnd">Enable SI details at Merchant end</label></th>\
+						<td><select id="siDetailsAtMerchantEnd" name="siDetailsAtMerchantEnd" style="width:85%">\
+								<option value="false">Disabled</option>\
+								<option value="true">Enabled</option> \
+						</select></td></tr>');
+				$('[name=siDetailsAtMerchantEnd]').val(merchantsidetails.toString());
+
+				var amount = "<%=@config_data['amountType']%>"
+				$("#ingenico_admin_table").append('<tr id="amount"> \
+						<th scope="row"><label for="amountType">Amount Type</label></th>\
+						<td><select id="amountType" name="amountType" style="width:85%" ><option value="M">Variable</option>\
+									<option value="F">Fixed</option> \
+						</select></td></tr>');
+				$('#amountType').val(amount);
+
+				var freq = "<%=@config_data['frequency']%>"
+				$("#ingenico_admin_table").append('<tr id="freq"> \
+						<th scope="row"><label for="frequency">Frequency</label></th>\
+						<td><select id="frequency" name="frequency" style="width:85%"><option value="ADHO">As and when presented</option>\
+									<option value="DAIL">Daily</option> \
+									<option value="WEEK">Weekly</option> \
+									<option value="MNTH">Monthly</option> \
+									<option value="QURT">Quarterly</option> \
+									<option value="MIAN">Semi Annually</option> \
+									<option value="YEAR">Yearly</option> \
+									<option value="BIMN">Bi-monthly</option> \
+						</select></td></tr>');
+				$('#frequency').val(freq);
+			}
+
+			$("#enableSI").change(function(){
+  				if($("#enableSI").val()=="true"){
+  					$("#ingenico_admin_table").append('<tr id="merchantsidetailsrow"> \
+							<th scope="row"><label for="siDetailsAtMerchantEnd">Enable SI details at Merchant end</label></th>\
+							<td><select id="siDetailsAtMerchantEnd" name="siDetailsAtMerchantEnd" style="width:85%">\
+									<option value="false">Disabled</option>\
+									<option value="true">Enabled</option> \
+							</select></td></tr>');
+					$("#ingenico_admin_table").append('<tr id="amount"> \
+							<th scope="row"><label for="amountType">Amount Type</label></th>\
+							<td><select id="amountType" name="amountType" style="width:85%" ><option value="M" selected >Variable</option>\
+										<option value="F">Fixed</option> \
+							</select></td></tr>');
+					$("#ingenico_admin_table").append('<tr id="freq"> \
+							<th scope="row"><label for="frequency">Frequency</label></th>\
+							<td><select id="frequency" name="frequency" style="width:85%"><option value="ADHO" selected >As and when presented</option>\
+										<option value="DAIL">Daily</option> \
+										<option value="WEEK">Weekly</option> \
+										<option value="MNTH">Monthly</option> \
+										<option value="QURT">Quarterly</option> \
+										<option value="MIAN">Semi Annually</option> \
+										<option value="YEAR">Yearly</option> \
+										<option value="BIMN">Bi-monthly</option> \
+							</select></td></tr>');
+  				}
+  				else {
+  					$("#merchantsidetailsrow").remove();
+  					$("#amount").remove();
+  					$("#freq").remove();
+  				}
+			}); 
+		});
+	</script>
+</head>
+
+<body>
+	<h2>Ingenico Admin</h2>
+	<%= form_for 'payment/admin' do %>
+		
+		<% flash.each do |type, msg| %>
+			<div class="success">
+				<%= msg %>
+			</div>
+		<% end %>
+
+		<table  id="ingenico_admin_table" cellpadding="10" cellspacing="10">
+			<tr>
+				<th>
+					Description
+				</th>
+				<td>
+					Ingenico ePayments (a Worldline brand) is India's leading digital payment solutions company. Being a company with more than 45 years of global payment experience, we are present in India for over 20 years and are powering over 550,000 businesses with our tailored payment solution. 
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Merchant Code', '*Merchant Code' %>
+				</th>
+				<td>
+					<%= text_field_tag 'merchantCode' , @config_data['merchantCode'], required: true, size: 100, placeholder: 'Merchant Code' %>
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Merchant Scheme Code', '*Merchant Scheme Code' %>
+				</th>
+				<td>
+					<%= text_field_tag 'merchantSchemeCode', @config_data['merchantSchemeCode'], required: true, size: 100, placeholder: 'Merchant Scheme Code' %>
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'SALT', '*SALT' %>
+				</th>
+				<td>
+					<%= text_field_tag 'SALT', @config_data['SALT'], required: true, size: 100, placeholder: 'Key' %>
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'currency', '*Currency' %>
+				</th>
+				<td>
+					<%= select_tag 'currency', options_for_select([['INR', 'INR'], ['USD', 'USD']], @config_data['currency']), :style => "width:85%" %>
+					<br><br>
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Type of Payment', '*Type of Payment' %>
+				</th>
+				<td>
+					<%= select_tag 'typeOfPayment', options_for_select([['TEST', 'TEST'], ['LIVE', 'LIVE']], @config_data['typeOfPayment']), :style => "width:85%" %>
+					<br><br>
+					For TEST mode amount will be charge 1
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Primary Color' %>
+				</th>
+				<td>
+					<%= text_field_tag 'primaryColor', @config_data['primaryColor'], size:100 %>
+					<br><br>
+					Color value can be hex, rgb or actual color name
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Secondary Color' %>
+				</th>
+				<td>
+					<%= text_field_tag 'secondaryColor', @config_data['secondaryColor'], size: 100 %>
+					<br><br>
+					Color value can be hex, rgb or actual color name
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Button Color 1' %>
+				</th>
+				<td>
+					<%= text_field_tag 'buttonColor1', @config_data['buttonColor1'], size: 100 %>
+					<br><br>
+					Color value can be hex, rgb or actual color name
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Button Color 2' %>
+				</th>
+				<td>
+					<%= text_field_tag 'buttonColor2', @config_data['buttonColor2'], size: 100 %>
+					<br><br>
+					Color value can be hex, rgb or actual color name
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Logo URL' %>
+				</th>
+				<td>
+					<%= text_field_tag 'logoURL', @config_data['logoURL'], size: 100 %>
+					<br><br>
+					An absolute URL pointing to a logo image of merchant which will show on checkout popup
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Enable ExpressPay' %>
+				</th>
+				<td>
+					<%= select_tag 'enableExpressPay', options_for_select([['Disabled', false], ['Enabled', true]], @config_data['enableExpressPay']), :style => "width:85%" %>
+					<br><br>
+					To enable saved payments set its value to yes
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Separate Card Mode' %>
+				</th>
+				<td>
+					<%= select_tag 'separateCardMode', options_for_select([['Disabled', false], ['Enabled', true]], @config_data['separateCardMode']), :style => "width:85%" %>
+					<br><br>
+					If this feature is enabled checkout shows two separate payment mode(Credit Card and Debit Card)
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Enable New Window Flow' %>
+				</th>
+				<td>
+					<%= select_tag 'enableNewWindowFlow', options_for_select([['Enabled', true], ['Disabled', false]], @config_data['enableNewWindowFlow']), :style => "width:85%" %>
+					<br><br>
+					If this feature is enabled, then bank page will open in new window
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Merchant Message' %>
+				</th>
+				<td>
+					<%= text_field_tag 'merchantMessage', @config_data['merchantMessage'], size: 100 %>
+					<br><br>
+					Customize message from merchant which will be shown to customer in checkout page
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Disclaimer Message' %>
+				</th>
+				<td>
+					<%= text_field_tag 'disclaimerMessage', @config_data['disclaimerMessage'], size: 100 %>
+					<br><br>
+					Customize disclaimer message from merchant which will be shown to customer in checkout page
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Payment Mode' %>
+				</th>
+				<td>
+					<%= select_tag 'paymentMode', options_for_select([['all', 'all'], ['cards', 'cards'], ['netBanking', 'netBanking'], ['UPI', 'UPI'], ['imps', 'imps'], ['wallets', 'wallets'], ['cashCards', 'cashCards'], ['NEFTRTGS', 'NEFTRTGS'], ['emiBanks', 'emiBanks']], @config_data['paymentMode'] ),:style => "width:85%" %>
+					<br><br>
+					If Bank selection is at Ingenico ePayments India Pvt. Ltd. (a Worldline brand) end then select all, if bank selection at Merchant end then pass appropriate mode respective to selected option
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Payment Mode Order' %>
+				</th>
+				<td>
+					<%= text_area_tag 'paymentModeOrder', @config_data['paymentModeOrder'], :size => "80x2" %>
+					<br><br>
+					Please pass order in this format: cards,netBanking,imps,wallets,cashCards,UPI,MVISA,debitPin,NEFTRTGS,emiBanks.
+					Merchant can define their payment mode order
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Enable InstrumentDeRegistration' %>
+				</th>
+				<td>
+					<%= select_tag 'enableInstrumentDeRegistration', options_for_select([['Disabled', false], ['Enabled', true]], @config_data['enableInstrumentDeRegistration']), :style => "width:85%" %>
+					<br><br>
+					If this feature is enabled, you will have an option to delete saved cards
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Transaction Type' %>
+				</th>
+				<td>
+					<%= select_tag 'transactionType', options_for_select([['SALE', 'SALE']], 'SALE'), :style => "width:85%"%>
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Hide SavedInstruments' %>
+				</th>
+				<td>
+					<%= select_tag 'hideSavedInstruments', options_for_select([['Disabled', false], ['Enabled', true]], @config_data['hideSavedInstruments']), :style => "width:85%" %>
+					<br><br>
+					If enabled checkout hides saved payment options even in case of enableExpressPay is enabled
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Save Instrument' %>
+				</th>
+				<td>
+					<%= select_tag 'saveInstrument', options_for_select([['Disabled', false], ['Enabled', true]], @config_data['saveInstrument']), :style => "width:85%" %>
+					<br><br>
+					Enable this feature to vault instrument
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Display Transaction Message on Popup' %>
+				</th>
+				<td>
+					<%= select_tag 'displayTransactionMessageOnPopup', options_for_select([['Disabled', false], ['Enabled', true]], @config_data['displayTransactionMessageOnPopup']), :style => "width:85%" %>
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Embed Payment Gateway On Page' %>
+				</th>
+				<td>
+					<%= select_tag 'embedPaymentGatewayOnPage', options_for_select([['Disabled', false], ['Enabled', true]], @config_data['embedPaymentGatewayOnPage']), :style => "width:85%" %>
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Enable SI' %>
+				</th>
+				<td>
+					<%= select_tag 'enableSI', options_for_select([['Disabled', false], ['Enabled', true]], @config_data['enableSI']), :style => "width:85%" %>
+					<br><br>
+					Enable eMandate using this feature
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Hide SI Details' %>
+				</th>
+				<td>
+					<%= select_tag 'hideSIDetails', options_for_select([['Disabled', false], ['Enabled', true]], @config_data['hideSIDetails']), :style => "width:85%" %>
+					<br><br>
+					Enable this feature to hide SI details from the customer
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Hide SI Confirmation' %>
+				</th>
+				<td>
+					<%= select_tag 'hideSIConfirmation', options_for_select([['Disabled', false], ['Enabled', true]], @config_data['hideSIConfirmation']), :style => "width:85%" %>
+					<br><br>
+					Enable this feature to hide the confirmation screen in eMandate/eNACH/eSign registration
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Expand SI Details' %>
+				</th>
+				<td>
+					<%= select_tag 'expandSIDetails', options_for_select([['Disabled', false], ['Enabled', true]], @config_data['expandSIDetails']), :style => "width:85%" %>
+					<br><br>
+					Enable this feature to show eMandate/eNACH/eSign details in expanded mode by default
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Enable Debit Day' %>
+				</th>
+				<td>
+					<%= select_tag 'enableDebitDay', options_for_select([['Disabled', false], ['Enabled', true]], @config_data['enableDebitDay']), :style => "width:85%" %>
+					<br><br>
+					Enable this feature to acccept debit day value eMandate/eNACH/eSign registration
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Show SI Response Msg' %>
+				</th>
+				<td>
+					<%= select_tag 'showSIResponseMsg', options_for_select([['Disabled', false], ['Enabled', true]], @config_data['showSIResponseMsg']), :style => "width:85%" %>
+					<br><br>
+					Enable this feature to show eMandate/eNACH/eSign registrations details also in final checkout response
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Show SI Confirmation' %>
+				</th>
+				<td>
+					<%= select_tag 'showSIConfirmation', options_for_select([['Disabled', false], ['Enabled', true]], @config_data['showSIConfirmation']), :style => "width:85%" %>
+					<br><br>
+					Enable this feature to show confirmation screen for registration
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Enable Txn For NonSI Cards' %>
+				</th>
+				<td>
+					<%= select_tag 'enableTxnForNonSICards', options_for_select([['Disabled', false], ['Enabled', true]], @config_data['enableTxnForNonSICards']), :style => "width:85%" %>
+					<br><br>
+					Enable this feature to proceed with a normal transaction with same card details
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					<%= label_tag 'Show All Modes With SI' %>
+				</th>
+				<td>
+					<%= select_tag 'showAllModesWithSI', options_for_select([['Disabled', false], ['Enabled', true]], @config_data['showAllModesWithSI']), :style => "width:85%" %>
+					<br><br>
+					Enable this feature to show all modes with SI
+				</td>
+			</tr>
+
+		</table>
+		<div><%= submit_tag :'Submit'%></div>
+	<% end %>
+
+</body>
+</html>
+
+
+
+

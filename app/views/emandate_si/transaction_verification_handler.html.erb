@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Transaction Verification</title>
+	<style>
+		table, td, th {
+			border: 1px solid black;
+		}
+		table {
+			border-collapse: collapse;
+		}
+	</style>
+</head>
+
+<body>
+
+	<h1>Transaction Verification</h1>
+	<%= form_for 'emandate_si/transaction-verification' do %>
+		<table border="1" cellpadding="2" cellspacing="0">
+			<tr>
+				<td><%= label_tag :'Type of Transaction', 'Type of Transaction (eMandate/SI on Cards) ' %></td>
+				<td><%= select_tag :modeOfVerification, options_for_select([['eMandate', 'eMandate'], ['SI on Cards', 'SIonCards']])%></td>
+			</tr>
+			<tr>
+				<td><%= label_tag :'Merchant Transaction Id', 'Merchant Transaction Id (Transaction Id sent during transaction scheduling)' %></td>
+				<td><%= text_field_tag :merchantTxnId, '', required: true %></td>
+			</tr>
+			<tr>
+				<td><%= label_tag :'Date', 'Date ' %></td>
+				<td><%= date_field_tag :date, '', required: true %></td>
+		</tr>
+		</table>
+		<br>
+		<%= submit_tag :Submit %><br>
+	<% end %>
+	<br><br>
+
+	<%= form_for 'display' do %>
+		<% if @response %>
+			<table border="2" align="middle">
+				<tr>
+					<td><%= label_tag :'Status Code' %></td>
+					<td><%= @response['paymentMethod']['paymentTransaction']['statusCode']%></td>
+				</tr>
+				<tr>
+					<td><%= label_tag :'Merchant Transaction Reference No' %></td>
+					<td><%= @response['merchantTransactionIdentifier']%></td>
+				</tr>
+				<tr>
+					<td><%= label_tag :'TPSL Transaction ID' %></td>
+					<td><%= @response['paymentMethod']['paymentTransaction']['identifier']%></td>
+				</tr>
+				<tr>
+					<td><%= label_tag :'Message' %></td>
+					<td><%= @response['paymentMethod']['error']['desc']%></td>
+				</tr>
+				<tr>
+                    <td><%= label_tag :'Status' %></td>
+                    <td><%= @response['paymentMethod']['paymentTransaction']['statusMessage']%></td>
+                </tr>
+				<tr>
+                    <td><%= label_tag :'Date Time' %></td>
+                    <td><%= @response['paymentMethod']['paymentTransaction']['dateTime']%></td>
+                </tr>
+			</table>
+			<br>
+		<% end %>
+	<% end %>
+
+</body>
+</html>

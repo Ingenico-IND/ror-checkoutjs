@@ -1,0 +1,81 @@
+<h1>Refund</h1>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Refund Page</title>
+	<style>
+		table, td, th {
+			border: 1px solid black;
+		}
+
+		table {
+			border-collapse: collapse;
+		}
+	</style>
+</head>
+
+
+<body>
+	<%= form_for 'payment/refund' do %>
+
+		<%= label_tag 'Tansaction ID', 'TPSL Tansaction ID: ' %>
+		<%= text_field_tag 'token', '', required: true %> 
+	
+		<%= label_tag 'Amount', 'Amount: '  %>
+		<%= text_field_tag 'amount', '', required: true %>
+	
+		<%= label_tag :'Date', 'Date: ' %>
+		<%= date_field_tag 'inputDate', '', required: true %>
+
+		<%= submit_tag 'Submit' %>
+	<% end %>
+
+	<br><br>
+	
+	<%= form_for 'display' do %>
+		<% if @response %>
+			<table border="2" align="middle">
+				<tr>
+					<th><%= label_tag 'Status Code' %></th>
+					<td><%= @response['paymentMethod']['paymentTransaction']['statusCode']%></td>
+				</tr>
+
+				<tr>
+					<th><%= label_tag 'Merchant Transaction Reference No' %></th>
+					<td><%= @response['merchantTransactionIdentifier']%></td>
+				</tr>
+
+				<tr>
+					<th><%= label_tag 'TPSL Transaction ID' %></th>
+					<td><%= @response['paymentMethod']['paymentTransaction']['identifier']%></td>
+				</tr>
+
+				<tr>
+					<th><%= label_tag 'Amount' %></th>
+					<td><%= @response['paymentMethod']['paymentTransaction']['amount']%></td>
+				</tr>
+
+				<tr>
+					<th><%= label_tag 'Message' %></th>
+					<td><%= @response['paymentMethod']['paymentTransaction']['errorMessage']%></td>
+				</tr>
+
+				<tr>
+					<th><%= label_tag 'Status Message' %></th>
+					<td><%= @response['paymentMethod']['paymentTransaction']['statusMessage']%></td>
+				</tr>
+
+				<tr>
+					<th><%= label_tag 'Date Time' %></th>
+					<td><%= @response['paymentMethod']['paymentTransaction']['dateTime']%></td>
+				</tr>
+			</table>
+		<% end %>
+	<% end %>
+
+</body>
+
+</html>
+

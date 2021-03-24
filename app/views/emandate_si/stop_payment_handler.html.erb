@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Stop Payment</title>
+	<style>
+		table, td, th {
+			border: 1px solid black;
+		}
+		table {
+			border-collapse: collapse;
+		}
+	</style>
+</head>
+
+<body>
+
+	<h1>Stop Payment</h1>
+	<%= form_for 'emandate_si/stop-payment' do %>
+		<%= label_tag :'TPSL Transaction Id', 'TPSL Transaction Id (TPSL ID given in response of Transaction scheduling): ' %>
+		<%= text_field_tag :txnId, '', required: true %>
+		<br><br>
+		<%= submit_tag :Submit %><br>
+	<% end %>
+	<br><br>
+
+	<%= form_for 'display' do %>
+		<% if @response %>
+			<table>
+				<tr>
+					<td><%= label_tag :'Status Code' %></td>
+					<td><%= @response['paymentMethod']['paymentTransaction']['statusCode']%></td>
+				</tr>
+				<tr>
+					<td><%= label_tag :'Merchant Transaction Reference No' %></td>
+					<td><%= @response['merchantTransactionIdentifier']%></td>
+				</tr>
+				<tr>
+					<td><%= label_tag :'Message' %></td>
+					<td><%= @response['paymentMethod']['error']['desc']%></td>
+				</tr>
+			</table>
+			<br>
+		<% end %>
+	<% end %>
+
+</body>
+</html>

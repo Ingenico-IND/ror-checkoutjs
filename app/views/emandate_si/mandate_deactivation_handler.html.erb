@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Mandate Deactivation</title>
+	<style>
+		table, td, th {
+			border: 1px solid black;
+		}
+		table {
+			border-collapse: collapse;
+		}
+	</style>
+</head>
+
+<body>
+
+	<h1>Mandate Deactivation</h1>
+	<%= form_for 'emandate_si/mandate-deactivation' do %>
+		<table border="1" cellpadding="2" cellspacing="0">
+			<!-- TODO: uncomment this commented part when emandate deactivation is implemented<tr>
+				<td><%= label_tag :'Type of Transaction', 'Type of Transaction (eMandate/SI on Cards) ' %></td>
+				<td> --><%= select_tag :modeOfTransaction, options_for_select([['eMandate', 'eMandate'], ['SI on Cards', 'SIonCards']], 'SIonCards'), :hidden => true %> <!-- </td> 
+			</tr>-->
+			<tr>
+				<td><%= label_tag :'Mandate Registration Id', 'Mandate Registration Id ' %></td>
+	        	<td><%= text_field_tag :mandateRegId, '', required: true %></td>
+	        </tr>
+    	</table>
+    	<br>
+		<%= submit_tag :Submit %><br>
+	<% end %>
+	<br><br>
+
+	<%= form_for 'display' do %>
+		<% if @response %>
+			<table border="2" align="middle">
+				<tr>
+					<td><%= label_tag :'Status Code' %></td>
+					<td><%= @response['paymentMethod']['paymentTransaction']['statusCode']%></td>
+				</tr>
+				<tr>
+					<td><%= label_tag :'Merchant Transaction Reference No' %></td>
+					<td><%= @response['merchantTransactionIdentifier']%></td>
+				</tr>
+				<tr>
+					<td><%= label_tag :'Message' %></td>
+					<td><%= @response['paymentMethod']['error']['desc']%></td>
+				</tr>
+			</table>
+			<br>
+		<% end %>
+	<% end %>
+
+</body>
+</html>

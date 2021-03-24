@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Response Page</title>
+</head>
+
+<body>
+
+	<h2> Online Transaction Result </h2>
+	<table border="1" cellpadding="2" cellspacing="2" >
+		<tr>
+			<th>
+				Txn Status
+			</th>
+			<td>
+				<%= @online_transaction_msg[0] %>
+			</td>
+		</tr>
+
+		<tr>
+			<th>
+				Txn Message
+			</th>
+			<td>
+				<%= @online_transaction_msg[1] %>
+			</td>
+		</tr>
+
+		<tr>
+			<th>
+				Txn Error Message
+			</th>
+			<td>
+				<%= @online_transaction_msg[2] %>
+			</td>
+		</tr>
+
+		<tr>
+			<th>
+				Clnt Txn Ref
+			</th>
+			<td>
+				<%= @online_transaction_msg[3] %>
+			</td>
+		</tr>
+
+
+		<tr>
+			<th>
+				TPSL Bank Cd
+			</th>
+			<td>
+				<%= @online_transaction_msg[4] %>
+			</td>
+		</tr>
+
+		<tr>
+			<th>
+				TPSL Txn Id
+			</th>
+			<td>
+				<%= @online_transaction_msg[5] %>
+			</td>
+		</tr>
+
+		<tr>
+			<th>
+				Txn Amt
+			</th>
+			<td>
+				<%= @online_transaction_msg[6] %>
+			</td>
+		</tr>
+
+		<tr>
+			<th>
+				Clnt Request Meta
+			</th>
+			<td>
+				<%= @online_transaction_msg[7] %>
+			</td>
+		</tr>
+
+		<tr>
+			<th>
+				TPSL Txn Time
+			</th>
+			<td>
+				<%= @online_transaction_msg[8] %>
+			</td>
+		</tr>
+
+		<tr>
+			<th>
+				Balance Amt
+			</th>
+			<td>
+				<%= @online_transaction_msg[9] %>
+			</td>
+		</tr>
+
+		<% if @online_transaction_msg[10] != "" %>
+			<tr>
+				<th>
+					Card Id
+				</th>
+				<td>
+					<%= @online_transaction_msg[10] %>
+				</td>
+			</tr>
+		<% end %>
+
+		<tr>
+			<th>
+				Alias Name
+			</th>
+			<td>
+				<%= @online_transaction_msg[11] %>
+			</td>
+		</tr>
+
+		<tr>
+			<th>
+				Bank Transaction Id
+			</th>
+			<td>
+				<%= @online_transaction_msg[12] %>
+			</td>
+		</tr>
+
+		<% if @online_transaction_msg[13] != "" %>
+			<tr>
+				<th>
+					Mandate Reg No
+				</th>
+				<td>
+					<%= @online_transaction_msg[13] %>
+				</td>
+			</tr>
+		<% end %>
+
+		<tr>
+			<th>
+				Token
+			</th>
+			<td>
+				<%= @online_transaction_msg[14] %>
+			</td>
+		</tr>
+
+		<tr>
+			<th>
+				Hash
+			</th>
+			<td>
+				<%= @online_transaction_msg[15] %>
+			</td>
+		</tr>
+
+	</table>
+	<br><br>
+		<%= @raw_result %>
+	<br><br>
+	
+	
+	<% if @dual_verification_result %>
+		<h2>Dual Verification Result</h2>
+		<table border="1" cellpadding="2" cellspacing="2" >
+			<tr>
+				<th>
+					Merchant Code
+				</th>
+				<td>
+					<%= @dual_verification_result['merchantCode'] %>
+				</td>	
+			</tr>
+
+			<tr>
+				<th>
+					Merchant Txn Identifier
+				</th>
+				<td>
+					<%= @dual_verification_result['merchantTransactionIdentifier'] %>
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					Merchant Txn Request Type
+				</th>
+				<td>
+					<%= @dual_verification_result['merchantTransactionRequestType'] %>
+				</td>
+			</tr>
+		
+			<tr>
+				<th>
+					 Response
+				</th>
+				<td>
+					<%= @dual_verification_result['responseType'] %>
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					 Payment DateTime
+				</th>
+				<td>
+					<%= @dual_verification_result['paymentMethod']['paymentTransaction']['dateTime'] %>
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					 Amount
+				</th>
+				<td>
+					<%= @dual_verification_result['paymentMethod']['paymentTransaction']['amount'] %>
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					 Payment Transaction Identifier
+				</th>
+				<td>
+					<%= @dual_verification_result['paymentMethod']['paymentTransaction']['identifier'] %>
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					 Status Code
+				</th>
+				<td>
+					<%= @dual_verification_result['paymentMethod']['paymentTransaction']['statusCode'] %>
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					 Status Message
+				</th>
+				<td>
+					<%= @dual_verification_result['paymentMethod']['paymentTransaction']['statusMessage'] %>
+				</td>
+			</tr>
+
+			<tr>
+				<th>
+					Error
+				</th>
+				<td>
+					<%= @dual_verification_result['paymentMethod']['error']%>
+				</td>
+			</tr>
+
+		</table>
+		<br><br>
+		<%= @dual_verification_result %>
+	<% end %>
+	<br><br>
+
+<li><%= link_to "Go HOME!", ingenico_home_path %></li>
+
+</body>
+</html>
