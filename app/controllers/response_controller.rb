@@ -2,7 +2,7 @@ class ResponseController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def response_handler
-    File.open('public/ingenico_transaction_config.json', 'r') do |f|
+    File.open('public/worldline_transaction_config.json', 'r') do |f|
       @config_data = JSON.parse(f.read)
     end
     data = params['msg'].split('|')

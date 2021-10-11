@@ -8,7 +8,7 @@ class EmandateSiController < ApplicationController
       begin
         Configdata.setData
         @config_data = Configdata.getData
-        render template: 'ingenico/mandtory_fields_page_error.html.erb' if @config_data == 403
+        render template: 'payment/mandtory_fields_page_error.html.erb' if @config_data == 403
       rescue StandardError => e
         puts "Oops!:There Seems to be an error. #{e}!"
         render text: e.message
@@ -16,7 +16,7 @@ class EmandateSiController < ApplicationController
     end
     if request.post?
       begin
-        File.open('public/ingenico_transaction_config.json', 'r') do |f|
+        File.open('public/worldline_transaction_config.json', 'r') do |f|
           @config_data = JSON.parse(f.read)
         end
         mode = params['modeOfVerification']
@@ -51,7 +51,7 @@ class EmandateSiController < ApplicationController
       begin
         Configdata.setData
         @config_data = Configdata.getData
-        render template: 'ingenico/mandtory_fields_page_error.html.erb' if @config_data == 403
+        render template: 'payment/mandtory_fields_page_error.html.erb' if @config_data == 403
       rescue StandardError => e
         puts "Oops!:There Seems to be an error. #{e}!"
         render text: e.message
@@ -59,7 +59,7 @@ class EmandateSiController < ApplicationController
     end
     if request.post?
       begin
-        File.open('public/ingenico_transaction_config.json', 'r') do |f|
+        File.open('public/worldline_transaction_config.json', 'r') do |f|
           @config_data = JSON.parse(f.read)
         end
         mode = params['modeOfTransaction']
@@ -104,7 +104,7 @@ class EmandateSiController < ApplicationController
       begin
         Configdata.setData
         @config_data = Configdata.getData
-        render template: 'ingenico/mandtory_fields_page_error.html.erb' if @config_data == 403
+        render template: 'payment/mandtory_fields_page_error.html.erb' if @config_data == 403
       rescue StandardError => e
         puts "Oops!:There Seems to be an error. #{e}!"
         render text: e.message
@@ -112,7 +112,7 @@ class EmandateSiController < ApplicationController
     end
     if request.post?
       begin
-        File.open('public/ingenico_transaction_config.json', 'r') do |f|
+        File.open('public/worldline_transaction_config.json', 'r') do |f|
           @config_data = JSON.parse(f.read)
         end
         mode = params['modeOfVerification']
@@ -154,7 +154,7 @@ class EmandateSiController < ApplicationController
       begin
         Configdata.setData
         @config_data = Configdata.getData
-        render template: 'ingenico/mandtory_fields_page_error.html.erb' if @config_data == 403
+        render template: 'payment/mandtory_fields_page_error.html.erb' if @config_data == 403
       rescue StandardError => e
         puts "Oops!:There Seems to be an error. #{e}!"
         render text: e.message
@@ -162,7 +162,7 @@ class EmandateSiController < ApplicationController
     end
     if request.post?
       begin
-        File.open('public/ingenico_transaction_config.json', 'r') do |f|
+        File.open('public/worldline_transaction_config.json', 'r') do |f|
           @config_data = JSON.parse(f.read)
         end
         mode = params['modeOfTransaction']
@@ -306,7 +306,7 @@ class EmandateSiController < ApplicationController
       begin
         Configdata.setData
         @config_data = Configdata.getData
-        render template: 'ingenico/mandtory_fields_page_error.html.erb' if @config_data == 403
+        render template: 'payment/mandtory_fields_page_error.html.erb' if @config_data == 403
       rescue StandardError => e
         puts "Oops!:There Seems to be an error. #{e}!"
         render text: e.message
@@ -314,7 +314,7 @@ class EmandateSiController < ApplicationController
     end
     if request.post?
       begin
-        File.open('public/ingenico_transaction_config.json', 'r') do |f|
+        File.open('public/worldline_transaction_config.json', 'r') do |f|
           @config_data = JSON.parse(f.read)
         end
         @transaction_id = rand.to_s[2..11]

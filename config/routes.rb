@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # set the index page / root url
-  root 'payment#home', as: :ingenico_home
+  root 'payment#home', as: :worldline_home
 
   post 'payment/online-transaction-handler' => 'payment#online_transaction_handler'
 

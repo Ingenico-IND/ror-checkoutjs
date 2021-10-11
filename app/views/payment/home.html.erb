@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>Checkout Demo</title>
     <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1" />
@@ -18,7 +17,6 @@
     			$("#frequency").val(freq)
     			$("#debitStartDate").val("<%= @startDate %>")
     			$("#debitEndDate").val("<%= @endDate %>")
-
     			$("#amount").change(function(){
     				$("#maxAmount").val($(this).val() * 2);
     			});
@@ -26,88 +24,63 @@
     	});
 	</script>
 </head>
-
 <body>
 	<h1>Online Transaction</h1>
 	<%= form_tag '#', :id => 'form' do %>
-		<table id="ingenico_merchant_table", border="1" cellpadding="2" cellspacing="0">
+		<table id="worldline_merchant_table", border="1" cellpadding="2" cellspacing="0">
 			<tr>
 				<td> <%= label_tag 'Merchant Code' %> </td>
 				<td> <%= text_field_tag 'mrctCode', @config_data['merchantCode'] %></td>
 			</tr>
-
 			<tr>
 				<td> <%= label_tag 'Transaction ID' %> </td>
 				<td> <%=text_field_tag 'txn_id', @transaction_id %> </td>
 			</tr>
-
 			<tr>
 				<td> <%= label_tag 'Amount' %> </td>
 				<td> <%=text_field_tag 'amount' %> </td>
 			</tr>
-
 			<tr>
 				<td> <%= label_tag 'Scheme' %> </td>
 				<td> <%=text_field_tag 'scheme', @config_data['merchantSchemeCode'] %> </td>
 			</tr>
-
 			<tr>
 				<td> <%= label_tag 'Customer ID' %>	</td>
 				<td> <%= text_field_tag 'custID' %> </td>
 			</tr>
-
 			<tr>
 				<td> <%= label_tag 'Mobile Number' %> </td>
 				<td> <%= text_field_tag  'mobNo'  %> </td>
 			</tr>
-
 			<tr>
 				<td> <%= label_tag 'Email' %> </td>
 				<td> <%= email_field_tag  'email'  %> </td>
 			</tr>
-
 			<tr>
 				<td> <%= label_tag 'Customer Name' %> </td>
 				<td> <%= text_field_tag 'name' %> </td>
 			</tr>
-
 			<tr>
 				<td> <%= label_tag 'Currency' %> </td>
 				<td> <%= text_field_tag 'currency', @config_data['currency']%> </td>
 			</tr>
-
 			<tr>
 				<td> <%= label_tag 'SALT' %> </td>
 				<td> <%= text_field_tag 'SALT', @config_data['SALT'] %> </td>
 			</tr>
-
 			<tr>
 				<td> <%= label_tag 'Return Url' %> </td>
 				<td> <%= text_field_tag 'returnUrl', @return_url %> </td>
 			</tr>
-
 			
 		</table>
-
 		<%= hidden_field_tag 'cardNumber'  %>
 		<%= hidden_field_tag 'expMonth'  %>
 		<%= hidden_field_tag 'expYear'  %>
 		<%= hidden_field_tag 'cvvCode'  %>
 		<%= hidden_field_tag 'siDetailsAtMerchantEndCond', @siDetailsAtMerchantEndCond %>
-
 	<div><%= submit_tag 'Submit', {id: "save"} %></div>
-	<div id="ingenico_embeded_popup"></div>
-
-
+	<div id="worldline_embeded_popup"></div>
 <% end %>
-
 </body>
-
 </html>
-
-
-
-
-
-
-

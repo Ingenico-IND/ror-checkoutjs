@@ -48,7 +48,7 @@ class PaymentController < ApplicationController
   def admin_handler
     if request.get?
       begin
-        File.open('public/ingenico_transaction_config.json', 'r') do |f|
+        File.open('public/worldline_transaction_config.json', 'r') do |f|
           @config_data = JSON.parse(f.read)
         end
       rescue StandardError => e
@@ -63,7 +63,7 @@ class PaymentController < ApplicationController
         params.each do |key, value|
           tempHash.store(key, value)
         end
-        File.open('public/ingenico_transaction_config.json', 'w') do |f|
+        File.open('public/worldline_transaction_config.json', 'w') do |f|
           f.write(JSON.pretty_generate(tempHash))
         end
       rescue StandardError => e
@@ -89,7 +89,7 @@ class PaymentController < ApplicationController
 
     if request.post?
       begin
-        File.open('public/ingenico_transaction_config.json', 'r') do |f|
+        File.open('public/worldline_transaction_config.json', 'r') do |f|
           @config_data = JSON.parse(f.read)
         end
         data = { merchant: { identifier: @config_data['merchantCode'] },
@@ -122,7 +122,7 @@ class PaymentController < ApplicationController
 
     if request.post?
       begin
-        File.open('public/ingenico_transaction_config.json', 'r') do |f|
+        File.open('public/worldline_transaction_config.json', 'r') do |f|
           @config_data = JSON.parse(f.read)
         end
         data = { merchant: { identifier: @config_data['merchantCode'] },
@@ -156,7 +156,7 @@ class PaymentController < ApplicationController
 
     if request.post?
       begin
-        File.open('public/ingenico_transaction_config.json', 'r') do |f|
+        File.open('public/worldline_transaction_config.json', 'r') do |f|
           @config_data = JSON.parse(f.read)
         end
         transaction_ids = params['merchantRefNo'].delete(' ')
@@ -251,7 +251,7 @@ class PaymentController < ApplicationController
                                         returnUrl: data['returnUrl'],
                                         paymentMode: config_data['paymentMode'],
                                         paymentModeOrder: config_data['paymentModeOrder'].delete(' ').split(','),
-                                        checkoutElement: string_to_bool[config_data['embedPaymentGatewayOnPage']] == true ? '#ingenico_embeded_popup' : '',
+                                        checkoutElement: string_to_bool[config_data['embedPaymentGatewayOnPage']] == true ? '#worldline_embeded_popup' : '',
                                         merchantLogoUrl: config_data['logoURL'],
                                         merchantId: data['mrctCode'], # provided merchant
                                         merchantMsg: config_data['merchantMessage'],

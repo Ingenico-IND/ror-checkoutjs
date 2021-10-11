@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Ingenico Admin</title>
+	<title>Worldline Admin</title>
 	
 	<style >
 		table, td, th {
@@ -27,7 +27,7 @@
 			if($("#enableSI").val()=="true"){
 				var merchantsidetails = <%=@config_data['siDetailsAtMerchantEnd']%>
 
-				$("#ingenico_admin_table").append('<tr id="merchantsidetailsrow"> \
+				$("#worldline_admin_table").append('<tr id="merchantsidetailsrow"> \
 						<th scope="row"><label for="siDetailsAtMerchantEnd">Enable SI details at Merchant end</label></th>\
 						<td><select id="siDetailsAtMerchantEnd" name="siDetailsAtMerchantEnd" style="width:85%">\
 								<option value="false">Disabled</option>\
@@ -36,7 +36,7 @@
 				$('[name=siDetailsAtMerchantEnd]').val(merchantsidetails.toString());
 
 				var amount = "<%=@config_data['amountType']%>"
-				$("#ingenico_admin_table").append('<tr id="amount"> \
+				$("#worldline_admin_table").append('<tr id="amount"> \
 						<th scope="row"><label for="amountType">Amount Type</label></th>\
 						<td><select id="amountType" name="amountType" style="width:85%" ><option value="M">Variable</option>\
 									<option value="F">Fixed</option> \
@@ -44,7 +44,7 @@
 				$('#amountType').val(amount);
 
 				var freq = "<%=@config_data['frequency']%>"
-				$("#ingenico_admin_table").append('<tr id="freq"> \
+				$("#worldline_admin_table").append('<tr id="freq"> \
 						<th scope="row"><label for="frequency">Frequency</label></th>\
 						<td><select id="frequency" name="frequency" style="width:85%"><option value="ADHO">As and when presented</option>\
 									<option value="DAIL">Daily</option> \
@@ -60,18 +60,18 @@
 
 			$("#enableSI").change(function(){
   				if($("#enableSI").val()=="true"){
-  					$("#ingenico_admin_table").append('<tr id="merchantsidetailsrow"> \
+  					$("#worldline_admin_table").append('<tr id="merchantsidetailsrow"> \
 							<th scope="row"><label for="siDetailsAtMerchantEnd">Enable SI details at Merchant end</label></th>\
 							<td><select id="siDetailsAtMerchantEnd" name="siDetailsAtMerchantEnd" style="width:85%">\
 									<option value="false">Disabled</option>\
 									<option value="true">Enabled</option> \
 							</select></td></tr>');
-					$("#ingenico_admin_table").append('<tr id="amount"> \
+					$("#worldline_admin_table").append('<tr id="amount"> \
 							<th scope="row"><label for="amountType">Amount Type</label></th>\
 							<td><select id="amountType" name="amountType" style="width:85%" ><option value="M" selected >Variable</option>\
 										<option value="F">Fixed</option> \
 							</select></td></tr>');
-					$("#ingenico_admin_table").append('<tr id="freq"> \
+					$("#worldline_admin_table").append('<tr id="freq"> \
 							<th scope="row"><label for="frequency">Frequency</label></th>\
 							<td><select id="frequency" name="frequency" style="width:85%"><option value="ADHO" selected >As and when presented</option>\
 										<option value="DAIL">Daily</option> \
@@ -94,7 +94,6 @@
 </head>
 
 <body>
-	<h2>Ingenico Admin</h2>
 	<%= form_for 'payment/admin' do %>
 		
 		<% flash.each do |type, msg| %>
@@ -103,13 +102,15 @@
 			</div>
 		<% end %>
 
-		<table  id="ingenico_admin_table" cellpadding="10" cellspacing="10">
+		<%= image_tag ("Worldline.png") , :style => "width:30%" %>
+		<h2>Worldline Admin</h2>
+		<table  id="worldline_admin_table" cellpadding="10" cellspacing="10">
 			<tr>
 				<th>
 					Description
 				</th>
 				<td>
-					Ingenico ePayments (a Worldline brand) is India's leading digital payment solutions company. Being a company with more than 45 years of global payment experience, we are present in India for over 20 years and are powering over 550,000 businesses with our tailored payment solution. 
+					Worldline ePayments Services is India's leading digital payment solutions company. Being a company with more than 45 years of global payment experience, we are present in India for over 20 years and are powering over 550,000 businesses with our tailored payment solution. 
 				</td>
 			</tr>
 
@@ -278,7 +279,7 @@
 				<td>
 					<%= select_tag 'paymentMode', options_for_select([['all', 'all'], ['cards', 'cards'], ['netBanking', 'netBanking'], ['UPI', 'UPI'], ['imps', 'imps'], ['wallets', 'wallets'], ['cashCards', 'cashCards'], ['NEFTRTGS', 'NEFTRTGS'], ['emiBanks', 'emiBanks']], @config_data['paymentMode'] ),:style => "width:85%" %>
 					<br><br>
-					If Bank selection is at Ingenico ePayments India Pvt. Ltd. (a Worldline brand) end then select all, if bank selection at Merchant end then pass appropriate mode respective to selected option
+					If Bank selection is at Worldline ePayments Services end then select all, if bank selection at Merchant end then pass appropriate mode respective to selected option
 				</td>
 			</tr>
 

@@ -1,47 +1,47 @@
 
 $(document).ready(function() {
 	if($("#siDetailsAtMerchantEndCond").val()=="true"){
-					$("#ingenico_merchant_table").append('<tr > \
+					$("#worldline_merchant_table").append('<tr > \
 						<td scope="row"><label for="accNo">Account No</label></td>\
 						<td><input type="text"  id="accNo" name="accNo"/> </td></tr>');
 
-					$("#ingenico_merchant_table").append('<tr > \
+					$("#worldline_merchant_table").append('<tr > \
 						<td scope="row"><label for="accountType">Account Type</label></td>\
 						<td><select id="accountType" name="accountType" style="width:100%" ><option value="Saving">Saving</option>\
 									<option value="Current">Current</option> \
 						</select></td></tr>');
 
-					$("#ingenico_merchant_table").append('<tr > \
+					$("#worldline_merchant_table").append('<tr > \
 						<td scope="row"><label for="accountHolderName">Account Name</label></td>\
 						<td><input type="text"  id="accountHolderName" name="accountHolderName" /> </td></tr>');
 
-					$("#ingenico_merchant_table").append('<tr > \
+					$("#worldline_merchant_table").append('<tr > \
 						<td scope="row"><label for="aadharNo">Aadhar No</label></td>\
 						<td><input type="text"  id="aadharNo" name="aadharNo" /> </td></tr>');
 
-					$("#ingenico_merchant_table").append('<tr > \
+					$("#worldline_merchant_table").append('<tr > \
 						<td scope="row"><label for="ifscCode">IFSC Code</label></td>\
 						<td><input type="text"  id="ifscCode" name="ifscCode" /> </td></tr>');
 
-					$("#ingenico_merchant_table").append('<tr > \
+					$("#worldline_merchant_table").append('<tr > \
 						<td scope="row"><label for="debitStartDate">Debit Start Date</label></td>\
 						<td><input type="date" id="debitStartDate" name="debitStartDate" style="width:98%" /> </td></tr>');
 
-					$("#ingenico_merchant_table").append('<tr > \
+					$("#worldline_merchant_table").append('<tr > \
 						<td scope="row"><label for="debitEndDate">Debit End Date</label></td>\
 						<td><input type="date" id="debitEndDate" name="debitEndDate" style="width:98%" /> </td></tr>');
 
-					$("#ingenico_merchant_table").append('<tr > \
+					$("#worldline_merchant_table").append('<tr > \
 						<td scope="row"><label for="maxAmount">Max Amount</label></td>\
 						<td><input type="text"  id="maxAmount" name="maxAmount" /> </td></tr>');
 
-					$("#ingenico_merchant_table").append('<tr > \
+					$("#worldline_merchant_table").append('<tr > \
 						<td scope="row"><label for="amountType">Amount Type</label></td>\
 						<td><select id="amountType" name="amountType" style="width:100%" ><option value="M">Variable</option>\
 									<option value="F">Fixed</option> \
 						</select></td></tr>');
 
-					$("#ingenico_merchant_table").append('<tr > \
+					$("#worldline_merchant_table").append('<tr > \
 						<td scope="row"><label for="frequency">Frequency</label></td>\
 						<td><select id="frequency" name="frequency" style="width:100%"><option value="ADHO">As and when presented</option>\
 									<option value="DAIL">Daily</option> \
